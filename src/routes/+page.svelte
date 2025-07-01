@@ -2,11 +2,12 @@
     import { readExcel } from '$lib/utils/readExcel';
     import Hearder from '$lib/components/Hearder.svelte';
     import FileUpload from '$lib/components/FileUpload.svelte';
-
+    import Card from '$lib/components/Card.svelte';
     /**
      * @type {Array<any>}
      */
     let data= $state([]);
+
 
     
 
@@ -19,7 +20,6 @@
       if (!file) return;
       const excelData = await readExcel(file);
       data=excelData;
-      console.log(data);
     }
   </script>
 
@@ -27,4 +27,19 @@
 
 <FileUpload handleFileUpload={handleFileUpload} />
 
-<pre>{JSON.stringify(data, null, 2)}</pre>
+{#if data.length > 0}
+  <div class="card-container">
+    <Card data={data[0].Description} />
+  </div>
+{/if}
+
+<style>
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+</style>
