@@ -5,7 +5,6 @@ import * as XLSX from 'xlsx';
  * @param {File} file 
  * @returns 
  */
-
 export async function readExcel(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();

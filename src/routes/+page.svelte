@@ -3,17 +3,11 @@
     import Hearder from '$lib/components/Hearder.svelte';
     import FileUpload from '$lib/components/FileUpload.svelte';
     import Card from '$lib/components/Card.svelte';
-    /**
-     * @type {Array<any>}
-     */
+    
+    /**@type {Array<any>}*/
     let data= $state([]);
 
-
-    
-
-    /**
-     * @param {Event} event 
-     */
+    /**@param {Event} event */
     async function handleFileUpload(event) {
       if (!event.target || !(event.target instanceof HTMLInputElement)) return;
       const file = event.target.files?.[0];
@@ -25,11 +19,13 @@
 
 <Hearder/>
 
-<FileUpload handleFileUpload={handleFileUpload} />
+{#if data.length === 0}
+  <FileUpload handleFileUpload={handleFileUpload} />
+{/if}
 
 {#if data.length > 0}
   <div class="card-container">
-    <Card data={data[0].Description} />
+    <Card data={data} />
   </div>
 {/if}
 

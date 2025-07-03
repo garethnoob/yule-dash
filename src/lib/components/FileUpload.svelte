@@ -23,6 +23,7 @@
     transition: all 0.3s ease;
     &:hover {
       background-color: #e0e0e0;
+      transform: scale(1.05);
     }
   }
   
