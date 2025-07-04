@@ -5,12 +5,14 @@
 
   /** @type {number} */
   let totalMade = data.reduce(
-    /** @param {number} acc @param {any} curr */
+    /** @param {number} acc 
+     * @param {any} curr */
     (acc, curr) => acc + curr.Made, 0);
 
   /** @type {number} */
   let totalPlanned = data.reduce(
-    /** @param {number} acc @param {any} curr */
+    /** @param {number} acc 
+     * @param {any} curr */
     (acc, curr) => acc + curr.Planned, 0);
 
   /** @type {number} */
@@ -28,8 +30,8 @@
 <style>
   .card {
     display: flex;
-    justify-content: space-between;
-    background-color: #f0f0f0;
+    justify-content: space-around;
+    background-color: #f1f3f6;
     padding: 20px;
     border-radius: 10px;
     width: 45%;
