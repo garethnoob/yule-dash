@@ -7,13 +7,13 @@
   let totalMade = $derived(data.reduce(
     /** @param {number} acc 
      * @param {any} curr */
-    (acc, curr) => acc + curr.made, 0));
+    (acc, curr) => acc + curr.Made, 0));
 
   /** @type {number} */
   let totalPlanned = $derived(data.reduce(
     /** @param {number} acc 
      * @param {any} curr */
-    (acc, curr) => acc + curr.planned, 0));
+    (acc, curr) => acc + curr.Planned, 0));
 
   /** @type {number} */
   let conformance = $derived((totalMade / totalPlanned) * 100);
