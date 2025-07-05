@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   // Import Chart.js for rendering charts
   import { Chart } from 'chart.js/auto';
 
@@ -6,13 +6,13 @@
   let {data} = $props();
 
   // Reference to the canvas element for Chart.js
-  let chartCanvas = $state();
+  let chartCanvas: HTMLCanvasElement | null = $state(null);
 
 
   // Compute the total 'Made' value from the data array
-  const totalMade = $derived(data.reduce((sum, item) => sum + (item.Made || 0), 0));
+  const totalMade = $derived(data.reduce((sum:number, item: any) => sum + (item.Made || 0), 0));
   // Compute the total 'Planned' value from the data array
-  const totalPlanned = $derived(data.reduce((sum, item) => sum + (item.Planned || 0), 0));
+  const totalPlanned = $derived(data.reduce((sum: number, item: any) => sum + (item.Planned || 0), 0));
 
   // Create or update the chart when the canvas or data changes
   $effect(() => {
@@ -20,6 +20,7 @@
     if (chartCanvas && data && data.length > 0) {
       // Get the 2D drawing context from the canvas
       const ctx = chartCanvas.getContext('2d');
+      if (!ctx) return; // Ensure ctx is not null
       // Create a new Chart.js bar chart
       const chart = new Chart(ctx, {
         type: 'bar',
