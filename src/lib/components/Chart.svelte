@@ -20,7 +20,7 @@
   const datesArray: string[] = $derived(data.map((item: any) => excelDateToJsDate(item.Date).toLocaleDateString('en-GB') || ''));
   // Create a color array for 'Made' values based on their comparison with 'Planned'
   const madeColor: string[] = $derived(madeArray.map((value, i) => {
-    return value >= plannedArray[i] ? 'rgba(144, 238, 144, 0.6)' : 'rgba(255, 99, 132, 0.6)'; // Use light green for 'Made' if it meets or exceeds 'Planned', otherwise light red
+    return value >= plannedArray[i] ? 'rgba(144, 238, 144, 0.8)' : 'rgba(255, 99, 132, 0.8)'; // Use light green for 'Made' if it meets or exceeds 'Planned', otherwise light red
   }));
 
   
