@@ -1,22 +1,17 @@
-<script>
+<script lang="ts">
   const { data } = $props();
 
   // console.log($state.snapshot(data));
 
-  /** @type {number} */
-  let totalMade = $derived(data.reduce(
-    /** @param {number} acc 
-     * @param {any} curr */
-    (acc, curr) => acc + curr.Made, 0));
+  let totalMade: number = $derived(data.reduce(
+    (acc: number, curr: any) => acc + curr.Made, 0));
 
-  /** @type {number} */
-  let totalPlanned = $derived(data.reduce(
-    /** @param {number} acc 
-     * @param {any} curr */
-    (acc, curr) => acc + curr.Planned, 0));
 
-  /** @type {number} */
-  let conformance = $derived((totalMade / totalPlanned) * 100);
+  let totalPlanned: number = $derived(data.reduce(
+    (acc: number, curr: any) => acc + curr.Planned, 0));
+
+
+  let conformance: number = $derived((totalMade / totalPlanned) * 100);
 
 </script>
 

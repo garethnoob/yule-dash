@@ -8,11 +8,27 @@
   // Reference to the canvas element for Chart.js
   let chartCanvas: HTMLCanvasElement | null = $state(null);
 
+  function excelDateToJsDate(excelDate: number): Date {
+    // Convert Excel date to JavaScript Date object
+    const date = new Date((excelDate - 25569) * 86400 * 1000);
+    return date;
+  }
+
+
+  const plannedArray: number[] = $derived(data.map((item: any) => item.Planned || 0));
+  const madeArray: number[] = $derived(data.map((item: any) => item.Made || 0));
+  const datesArray: string[] = $derived(data.map((item: any) => excelDateToJsDate(item.Date).toLocaleDateString('en-GB') || ''));
+  // Create a color array for 'Made' values based on their comparison with 'Planned'
+  const madeColor: string[] = $derived(madeArray.map((value, i) => {
+    return value >= plannedArray[i] ? 'rgba(144, 238, 144, 0.6)' : 'rgba(255, 99, 132, 0.6)'; // Use light green for 'Made' if it meets or exceeds 'Planned', otherwise light red
+  }));
+
+  
 
   // Compute the total 'Made' value from the data array
-  const totalMade = $derived(data.reduce((sum:number, item: any) => sum + (item.Made || 0), 0));
+  const totalMade: number[] = $derived(data.reduce((sum: number, item: any) => sum + (item.Made || 0), 0));
   // Compute the total 'Planned' value from the data array
-  const totalPlanned = $derived(data.reduce((sum: number, item: any) => sum + (item.Planned || 0), 0));
+  const totalPlanned: number[] = $derived(data.reduce((sum: number, item: any) => sum + (item.Planned || 0), 0));
 
   // Create or update the chart when the canvas or data changes
   $effect(() => {
@@ -26,19 +42,21 @@
         type: 'bar',
         data: {
           // Chart labels for the x-axis
-          labels: ['Made', 'Planned'],
+          labels: datesArray,
           // Chart dataset with totals
           datasets: [{
-            label: 'Total',
-            data: [totalMade, totalPlanned],
-            backgroundColor: [
-              'rgba(66, 133, 244, 0.8)', // Blue for 'Made'
-              'rgba(234, 67, 53, 0.8)'   // Red for 'Planned'
-            ],
-            borderColor: [
-              'rgba(66, 133, 244, 1)',
-              'rgba(234, 67, 53, 1)'
-            ],
+            label: 'Planned',
+            data: plannedArray,
+            backgroundColor: 'rgba(200, 200, 200, 0.8)',  // Red for 'Planned',
+            borderColor: 'rgba(200, 200, 200, 0.8)', // Red for 'Planned',
+            borderWidth: 2,
+            borderRadius: 8
+          },
+          {
+            label: 'Made',
+            data: madeArray,
+            backgroundColor: madeColor, // Blue for 'Made'
+            borderColor: madeColor,
             borderWidth: 2,
             borderRadius: 8
           }]
@@ -49,7 +67,7 @@
           plugins: {
             title: {
               display: true,
-              text: 'Sales Comparison', // Chart title
+              text: 'Planned vs Actual', // Chart title
               font: {
                 size: 18,
                 weight: 'bold'
@@ -57,7 +75,7 @@
               padding: 20
             },
             legend: {
-              display: false // Hide legend
+              display: true // Hide legend
             }
           },
           scales: {
@@ -105,17 +123,21 @@
 </div>
 {/if}
 
+
 <style>
   /* Container for the chart with styling */
   .chart-container {
-    width: 100%;
+    margin: 20px auto; /* Center horizontally */
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    width: 95%;
     height: 400px;
     position: relative;
-    margin: 20px 0;
     padding: 20px;
     background: white;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 4px 10px rgba(0, 0, 0, 0.2)
   }
   
   /* Make the canvas fill the container */
@@ -123,4 +145,6 @@
     width: 100% !important;
     height: 100% !important;
   }
+
+  
 </style>
