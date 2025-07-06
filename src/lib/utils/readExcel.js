@@ -20,9 +20,13 @@ export async function readExcel(file) {
     // Convert the worksheet to JSON (array of objects)
     const json = XLSX.utils.sheet_to_json(worksheet);
     // Log the loaded data for debugging
-    console.log('Excel data loaded:', json);
+
+    const sortedJson = json.sort((a, b) => {
+      return a.Date - b.Date; // Assuming 'Date' is a field in the JSON objects
+    });
+    console.log('Excel data loaded:', sortedJson);
     // Return the parsed JSON data
-    return json;
+    return sortedJson;
   } catch (error) {
     // Log and rethrow any errors encountered during reading
     console.error('Error reading Excel file:', error);
