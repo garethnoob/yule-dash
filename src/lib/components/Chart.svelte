@@ -1,18 +1,14 @@
 <script lang="ts">
   // Import Chart.js for rendering charts
   import { Chart } from 'chart.js/auto';
+  
+  import { excelDateToJsDate } from '$lib/utils/excelDateToJsDate';
 
   // Receive the 'data' prop from the parent component
   let {data} = $props();
 
   // Reference to the canvas element for Chart.js
   let chartCanvas: HTMLCanvasElement | null = $state(null);
-
-  function excelDateToJsDate(excelDate: number): Date {
-    // Convert Excel date to JavaScript Date object
-    const date = new Date((excelDate - 25569) * 86400 * 1000);
-    return date;
-  }
 
 
   const plannedArray: number[] = $derived(data.map((item: any) => item.Planned || 0));
