@@ -40,7 +40,7 @@
 
 <Chart data={data} />
 
-<!-- <WeeklyChart data={data} /> -->
+<WeeklyChart data={data} />
 
 <style>
   .card-container {

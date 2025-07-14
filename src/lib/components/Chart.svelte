@@ -63,7 +63,7 @@
           plugins: {
             title: {
               display: true,
-              text: 'Planned vs Actual', // Chart title
+              text: 'Daily Planned vs Actual', // Chart title
               font: {
                 size: 18,
                 weight: 'bold'
