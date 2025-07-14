@@ -4,11 +4,32 @@
   
   import { excelDateToJsDate } from '$lib/utils/excelDateToJsDate';
 
+  type DataItem = {
+    Week: number;
+    Planned: number;
+    Made: number;
+  }
+
+  type WeekTotals = {
+    Week: number;
+    Planned: number;
+    Made: number;
+  }
+
   // Receive the 'data' prop from the parent component
   let {data} = $props();
 
   // Reference to the canvas element for Chart.js
   let chartCanvas: HTMLCanvasElement | null = $state(null);
+
+  const weekTotals: WeekTotals[] = Object.values(
+  (data as DataItem[]).reduce<Record<number, WeekTotals>>((acc, { Week, Planned, Made }) => {
+    if (!acc[Week]) acc[Week] = { Week, Planned: 0, Made: 0 };
+    acc[Week].Planned += Planned;
+    acc[Week].Made += Made;
+    return acc;
+  }, {} as Record<number, WeekTotals>) // Add type assertion for the initial value
+);
 
   
 </script>
