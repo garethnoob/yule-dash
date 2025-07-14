@@ -4,6 +4,7 @@
     import FileUpload from '$lib/components/FileUpload.svelte';
     import Card from '$lib/components/Card.svelte';
     import Chart from '$lib/components/Chart.svelte';
+    import WeeklyChart from '$lib/components/WeeklyChart.svelte';
     
     /**@type {Array<any>}*/
     let data= $state([]);
@@ -38,6 +39,8 @@
 {/if}
 
 <Chart data={data} />
+
+<!-- <WeeklyChart data={data} /> -->
 
 <style>
   .card-container {
