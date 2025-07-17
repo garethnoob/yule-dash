@@ -13,6 +13,8 @@
 
   let conformance: number = $derived((totalMade / totalPlanned) * 100);
 
+  let averageMade: number = $derived(totalMade / data.length || 0);
+
 </script>
 
 
@@ -20,6 +22,7 @@
   <h2>Planned: {totalPlanned.toLocaleString()}</h2>
   <h2>Made: {totalMade.toLocaleString()}</h2>
   <h2>CTP: {conformance.toFixed(1)}%  {conformance > 100 ? '🔥' : '🥺'}</h2>
+  <h2>Average Made: {averageMade.toLocaleString(undefined, { maximumFractionDigits: 0 })}</h2>
 </div>
 
 <style>
