@@ -4,7 +4,7 @@
 
 
 <label for="file-upload" class="file-upload-label">
-  Choose Excel file or drag here
+  Choose Excel file
 </label>
 <input id="file-upload" type="file" onchange={handleFileUpload} accept=".xlsx" />
 
