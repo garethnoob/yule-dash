@@ -114,26 +114,49 @@
 
 {#if data && data.length > 0}
 <!-- Chart container only renders if data is available -->
-<div class="chart-container">
-  <canvas bind:this={chartCanvas}></canvas>
+<div class="chart-wrapper">
+  <div class="chart-header">
+    <h3 class="chart-title">Daily Production Overview</h3>
+    <p class="chart-subtitle">Planned vs Actual Production</p>
+  </div>
+  <div class="chart-container">
+    <canvas bind:this={chartCanvas}></canvas>
+  </div>
 </div>
 {/if}
 
 
 <style>
+  .chart-wrapper {
+    width: 100%;
+  }
+
+  .chart-header {
+    margin-bottom: 1rem;
+  }
+
+  .chart-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 0.25rem 0;
+  }
+
+  .chart-subtitle {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin: 0;
+  }
+
   /* Container for the chart with styling */
   .chart-container {
-    margin: 20px auto; /* Center horizontally */
     display: flex; 
     justify-content: center;
     align-items: center;
-    width: 95%;
+    width: 100%;
     height: 400px;
     position: relative;
     padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 4px 10px rgba(0, 0, 0, 0.2)
   }
   
   /* Make the canvas fill the container */
@@ -141,6 +164,4 @@
     width: 100% !important;
     height: 100% !important;
   }
-
-  
 </style>
