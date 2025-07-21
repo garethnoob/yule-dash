@@ -19,8 +19,17 @@
     
     const file = e.dataTransfer.files[0];
     if (file && file.name.endsWith('.xlsx')) {
-      const event = { target: { files: [file] } };
-      handleFileUpload(event);
+      // Create a synthetic event that mimics a file input change
+      const syntheticEvent = new Event('change', { bubbles: true });
+      const input = document.getElementById('file-upload');
+      
+      // Create a new FileList containing our file
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(file);
+      input.files = dataTransfer.files;
+      
+      // Trigger the change event
+      input.dispatchEvent(syntheticEvent);
     }
   }
 </script>
